@@ -9,14 +9,14 @@
 import UIKit
 
 class SecondViewController: UIViewController, UITextFieldDelegate {
-    
-    
 
     @IBOutlet weak var todoTextField: UITextField!
 
     @IBAction func addToDo(sender: AnyObject) {
         
         todoItems.append(todoTextField.text)
+        
+        self.view.endEditing(true)
         
         println(todoItems)
     }
@@ -39,7 +39,7 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
     
     func textFieldShouldReturn(textField: UITextField!) -> Bool {
         
-        textField.resignFirstResponder()
+        todoTextField.resignFirstResponder()
         return true
         
     }

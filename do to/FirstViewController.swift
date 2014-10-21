@@ -12,7 +12,7 @@ var todoItems:[String] = []
 
 class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    
+    @IBOutlet var taskTable:UITableView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,18 +25,20 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return 5
+        return todoItems.count
     }
     
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
-        
+     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "cell")
-        
-        cell.textLabel.text = "test"
-        
+        cell.textLabel.text = todoItems[indexPath.row]
         return cell
         
+    }
+
+    
+    override func viewWillAppear(animated: Bool) {
+        
+        taskTable?.reloadData()
     }
 
 
