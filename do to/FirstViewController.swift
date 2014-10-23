@@ -38,6 +38,19 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewWillAppear(animated: Bool) {
         
+        if var storedItems: AnyObject? = NSUserDefaults.standardUserDefaults().objectForKey("items"){
+            
+            for var i = 0; i < storedItems.count; ++i{
+                todoItems.append(storedItems[i] as NSString)
+                
+            }
+            
+            
+            
+        }
+        
+
+        
         taskTable?.reloadData()
     }
 
