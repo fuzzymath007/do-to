@@ -16,14 +16,13 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
         
         todoItems.append(todoTextField.text)
         
-        NSUserDefaults.standardUserDefaults().setValue(todoItems, forKey: "items")
+        let fixedTodoItems = todoItems
+        
+        NSUserDefaults.standardUserDefaults().setValue(fixedTodoItems, forKey: "items")
         NSUserDefaults.standardUserDefaults().synchronize()
         
-        var storedItems: AnyObject? = NSUserDefaults.standardUserDefaults().objectForKey("items")
         
         self.view.endEditing(true)
-        
-        println(storedItems)
         
     }
     

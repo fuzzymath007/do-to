@@ -32,28 +32,43 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         var cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "cell")
         cell.textLabel.text = todoItems[indexPath.row]
         return cell
-        
     }
 
     
     override func viewWillAppear(animated: Bool) {
         
-        if var storedItems: AnyObject? = NSUserDefaults.standardUserDefaults().objectForKey("items"){
+        if var storedItems: AnyObject = NSUserDefaults.standardUserDefaults().objectForKey("items"){
             
-            for var i = 0; i < storedItems.count; ++i{
-                todoItems.append(storedItems[i] as NSString)
+            //we need to reset the todo array or it will repeat its self each time
+            todoItems = []
+            
+            var storedItemsNSArray = storedItems as NSArray
+            
+            for var i = 0; i < storedItemsNSArray.count; ++i{
                 
+                todoItems.append(storedItemsNSArray[i] as NSString)
             }
-            
-            
-            
         }
-        
-
-        
+  
         taskTable?.reloadData()
     }
 
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath){
+        
+        if (editingStyle == UITableViewCellEditingStyle.Delete){
+            
+            todoItems.removeAtIndex(indexPath.row)
+            
+            let fixedTodoItems = todoItems
+            
+            NSUserDefaults.standardUserDefaults().setValue(fixedTodoItems, forKey: "items")
+            NSUserDefaults.standardUserDefaults().synchronize()
+            
+            tableView.reloadData()
+        }
+        
+    }
+    
 
 }
 
